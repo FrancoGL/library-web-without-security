@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editorial</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/custom/custom.css}">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style-general.css}">
+</head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<main class="container-fluid">
+
+    <h1 class="text-center m-3">Editorial List</h1>
+
+    <div class="alert alert-success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <div class="mb-3 text-end" th:unless="${editorials.isEmpty()}">
+        <a th:href="@{/editorial/editorial-form}" class="btn btn-custom-2 text-light">Add New Editorial</a>
+    </div>
+
+    <div class="table-responsive">
+
+        <div th:if="${editorials.isEmpty()}" class="text-center">
+            <h5>Editorial list empty. <a th:href="@{/editorial/editorial-form}">Add Editorial</a></h5>
+        </div>
+
+        <table class="table table-hover" th:unless="${editorials.isEmpty()}">
+            <thead class="thead">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Active</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody th:each="editorial:${editorials}" class="tbody">
+            <tr>
+                <td th:text="${editorial.name}"></td>
+                <td>
+                    <form th:action="@{toggle-state/__${editorial.id}__}" method="post">
+                        <button class="btn-transparent" type="submit" th:if="${editorial.active}"><i class="fas fa-toggle-on fa-2x text-success"></i></button>
+                        <button class="btn-transparent" type="submit" th:unless="${editorial.active}"><i class="fas fa-toggle-off fa-2x text-danger"></i></button>
+                    </form>
+                </td>
+                <td>
+                    <a th:href="@{/editorial/edit-editorial/__${editorial.id}__}"><i class="fas fa-edit fa-2x"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Font Awesome JS -->
+<script src="https://kit.fontawesome.com/355497287f.js" crossorigin="anonymous"></script>
+</body>
+</html>

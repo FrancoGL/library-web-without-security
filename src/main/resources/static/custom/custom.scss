@@ -1,0 +1,18 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+$custom-colors: (
+        "custom-1": #89B5AF,
+        "custom-2": #96C7C1,
+        "custom-3": #DED9C4,
+        "custom-4": #D0CAB2
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+.bg-navbar-custom {
+  background-color: #89B5AF;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

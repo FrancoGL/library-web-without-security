@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Author List</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/custom/custom.css}">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style-general.css}">
+</head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<main class="container-fluid">
+
+    <h1 class="text-center m-3">Author List</h1>
+
+    <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+    <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+
+
+    <div th:unless="${authors.isEmpty()}" class="btn-container mb-3 text-end">
+        <a th:href="@{/author/author-form}" class="btn btn-custom-2 text-light">Add New Author</a>
+    </div>
+
+    <div class="table-responsive">
+
+        <div th:if="${authors.isEmpty()}" class="text-center">
+            <h5>Book list empty. <a th:href="@{/author/author-form}">Add Authors</a></h5>
+        </div>
+
+        <table th:unless="${authors.isEmpty()}" class="table table-hover table-sm">
+            <thead class="thead">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Active</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody th:each="author : ${authors}" class="tbody">
+            <tr>
+                <td th:text="${author.name}"></td>
+                <td>
+                    <form th:action="@{/author/toggle-state/__${author.id}__}" method="post">
+                        <button class="btn-transparent" type="submit" th:if="${author.active}"><i class="fas fa-toggle-on fa-2x text-success"></i></button>
+                        <button class="btn-transparent" type="submit" th:unless="${author.active}"><i class="fas fa-toggle-off fa-2x text-danger"></i></button>
+                    </form>
+                </td>
+                <td>
+                    <a th:href="@{/author/edit-author/__${author.id}__}"><i class="fas fa-edit fa-2x"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</main>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Font Awesome JS -->
+<script src="https://kit.fontawesome.com/355497287f.js" crossorigin="anonymous"></script>
+</body>
+</html>

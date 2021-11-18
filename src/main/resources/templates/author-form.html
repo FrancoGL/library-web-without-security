@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${title}"></title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/custom/custom.css}">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style-general.css}">
+</head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<main class="container">
+
+    <h1 th:text="${title}" class="my-3"></h1>
+
+    <form th:action="@{/author/__${action}__}" th:object="${author}" class="form mb-3" method="POST">
+
+        <input type="text" th:field="*{id}" hidden>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Author's name</label>
+            <input type="text" id="name" class="form-control" th:field="*{name}">
+            <div class="invalid-feedback">Name is required</div>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-custom-2 text-light" th:text="${action == 'save-author'} ? 'Save' : 'Update'"></button>
+        </div>
+    </form>
+
+</main>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Font Awesome JS -->
+<script src="https://kit.fontawesome.com/355497287f.js" crossorigin="anonymous"></script>
+</body>
+</html>

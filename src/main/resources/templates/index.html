@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/custom/custom.css}">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style-index.css}">
+</head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<main class="container-fluid">
+    <section class="cards-container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="@{images/books.png}" class="img-fluid rounded-start" alt="book image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Books</h5>
+                        <a th:href="@{/book/book-form}" class="btn btn-custom-2 text-light">Add</a>
+                        <a th:href="@{/book/book-table}" class="btn btn-custom-2 text-light">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="@{images/author.png}" class="img-fluid rounded-start" alt="writer image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Authors</h5>
+                        <a th:href="@{/author/author-form}" class="btn btn-custom-2 text-light">Add</a>
+                        <a th:href="@{/author/author-table}" class="btn btn-custom-2 text-light">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="@{images/editorial.png}" class="img-fluid rounded-start text-light" alt="printer image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Editorials</h5>
+                        <a th:href="@{/editorial/editorial-form}" class="btn btn-custom-2 text-light">Add</a>
+                        <a th:href="@{/editorial/editorial-table}" class="btn btn-custom-2 text-light">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Font Awesome JS -->
+<script src="https://kit.fontawesome.com/355497287f.js" crossorigin="anonymous"></script>
+</body>
+</html>

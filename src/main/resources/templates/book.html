@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book List</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/custom/custom.css}">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style-general.css}">
+</head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<main class="container-fluid">
+
+<h1 class="text-center">Book List</h1>
+
+<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+
+<div th:unless="${books.isEmpty()}" class="btn-container mb-3 text-end">
+    <a th:href="@{/book/book-form}" class="btn btn-custom-2 text-light">Add New Book</a>
+</div>
+
+<div class="table-responsive">
+
+    <div th:if="${books.isEmpty()}" class="text-center">
+        <h5>Book list empty. <a th:href="@{/book/book-form}">Add book</a></h5>
+    </div>
+
+    <table th:unless="${books.isEmpty()}" class="table  table-hover">
+        <thead class="thead">
+        <tr>
+            <th scope="col">ISBN</th>
+            <th scope="col">Title</th>
+            <th scope="col">Year</th>
+            <th scope="col">Copies</th>
+            <th scope="col">Lent Copies</th>
+            <th scope="col">Remaining Copies</th>
+            <th scope="col">State</th>
+            <th scope="col">Author</th>
+            <th scope="col">Editorial</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="book : ${books}" class="tbody">
+        <tr>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.publicationYear}"></td>
+            <td th:text="${book.copies}"></td>
+            <td th:text="${book.lentCopies}"></td>
+            <td th:text="${book.remainingCopies}"></td>
+            <td>
+                <form th:action="@{toggle-state/__${book.id}__}" method="POST">
+                    <button class="btn-transparent" type="submit" th:if="${book.active}"><i class="fas fa-toggle-on fa-2x text-success"></i></button>
+                    <button class="btn-transparent" type="submit" th:unless="${book.active}"><i class="fas fa-toggle-off fa-2x text-danger"></i></button>
+                </form>
+            </td>
+            <td th:text="${book.author.name}"></td>
+            <td th:text="${book.editorial.name}"></td>
+            <td>
+                <a th:href="@{/book/edit-book/__${book.id}__}"><i class="fas fa-edit fa-2x"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</main>
+
+
+<!-- Bootstrap JS -->
+<script th:src="@{/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Font Awesome JS -->
+<script src="https://kit.fontawesome.com/355497287f.js" crossorigin="anonymous"></script>
+</body>
+</html>
